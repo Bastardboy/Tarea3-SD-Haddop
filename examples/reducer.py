@@ -11,19 +11,19 @@ count_file = 0
 files = {}
 # palabra = {1:89}
 for line in sys.stdin:
-    l = line.strip().replace("\n","")
+    l = line.strip()
 
     word, num = l.split("\t",1)
-    if(word == "XDxdxd"):
+    if(word == "xdxdxd"):
         count_file += 1
     else:
         if(word in files):
-            if(count_file in files[word]):
-                files[word][count_file] += 1
+            if(num in files[word]):
+                files[word][num] += 1
             else:
-                files[word][count_file] = 1
+                files[word][num] = 1
         else:
-            files[word] = {count_file:1}
+            files[word] = {num:1}
 
 
 f = open("output.txt", "w")
