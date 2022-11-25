@@ -13,4 +13,4 @@ for line in sys.stdin:
     word = l.split()
 
     for words in enumerate(word):
-        print('{}\t{}'.format(words[1], 1))
+        print('{}\t{}'.format(words[1], word[0]))
