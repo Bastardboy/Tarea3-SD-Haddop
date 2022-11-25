@@ -1,37 +1,41 @@
-from operator import itemgetter
+#!/usr/bin/env python
+# -*-coding:utf-8 -*
+
 import sys
 
 current_word = None
 current_count = 0
 word = None
 
-# input comes from STDIN
+count_file = 0
+files = {}
+# palabra = {1:89}
 for line in sys.stdin:
-    # remove leading and trailing whitespace
-    line = line.strip()
+    l = line.strip().replace("\n","")
 
-    # parse the input we got from mapper.py
-    word, count = line.split('\t', 1)
-
-    # convert count (currently a string) to int
-    try:
-        count = int(count)
-    except ValueError:
-        # count was not a number, so silently
-        # ignore/discard this line
-        continue
-
-    # this IF-switch only works because Hadoop sorts map output
-    # by key (here: word) before it is passed to the reducer
-    if current_word == word:
-        current_count += count
+    word, num = l.split("\t",1)
+    if(word == "XDxdxd"):
+        count_file += 1
     else:
-        if current_word:
-            # write result to STDOUT
-            print ('%s\t%s' % (current_word, current_count))
-        current_count = count
-        current_word = word
+        if(word in files):
+            if(count_file in files[word]):
+                files[word][count_file] += 1
+            else:
+                files[word][count_file] = 1
+        else:
+            files[word] = {count_file:1}
 
-# do not forget to output the last word if needed!
-if current_word == word:
-    print ('%s\t%s' % (current_word, current_count))
+
+f = open("output.txt", "w")
+f.write("Palabra\t(Archivo, Cantidad)\n")
+for word in files:
+    f.write(word+"\t")
+    print(word+"\t")
+    for file in files[word]:
+        f.write("("+str(file)+","+str(files[word][file])+")") #output
+        print(str(file)+"\t"+str(files[word][file])+"\t") #consola
+    f.write("\n")
+f.close()
+
+#word | (file1, count1), (file2, count2), (file3, count3)
+#hola | (1, 2), (2, 1), (3, 1)

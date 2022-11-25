@@ -1,110 +1,53 @@
+## Generar map | reduce en python
 
-<br />
-<div align="center">
+## Cómo probar el código que hice
 
-  <h3 align="center">Sistemas Distribuidos: Tarea 03</h3>
+	cat data.txt | python mapper.py | sort -k1,1 | python reducer.py
 
-  <p align="center">
-    Bastián Castro, David Pazán
-  </p>
-</div>
+---
 
+## Cómo correr el contenedor
 
-## Acerca del proyecto
+Para poder levantar el contenedor:
 
-El objetivo de esta tarea consiste en poner en práctica los conceptos de sistemas de procesamientos. Para ello se debe hacer uso de tecnlogías que permitan la solución a esta problemática
+	docker run --name hadoop -p 9864:9864 -p 9870:9870 -p 8088:8088 -p 9000:9000 --hostname sd hadoop
 
+Podemos ver si el contenedor está listo para correr viendo si se levantó la interfaz gráfica de Hadoop:
 
-### 🛠 Construído con:
+[Hadoop](http://localhost:9870/dfshealth.html#tab-overview) ó `curl 'http://localhost:9870/dfshealth.html#tab-overview' | grep 'active'`
 
-Esta sección muestra las tecnologías con las que fue construído el proyecto.
+***Nota**: asegúrese que los puertos que está exponiendo se encuentran libres: **9864**, **9870**, **8088**, **9000***
 
-* [Hadoop](https://zookeeper.apache.org/doc/r3.8.0/index.html)
-* [Python](https://nodejs.org/en/docs/guides/)
-* [Docker](https://www.docker.com)
+## Cómo entrar al contenedor
 
+	docker exec -it hadoop bash
+	
 
-## 🔰 Comenzando
+## Qué hacer antes de levantar código
 
-Para iniciar el proyecto, primero hay que copiar el repositorio y luego escribir el siguiente comando en la consola:
-* docker
-```sh
-docker-compose --build -d
-```
-Para que los contenedores se inician en el ambiente local se utiliza el siguiente comando en la consola:
-* docker
-```sh
-docker-compose up -d
-```
-### Pre-Requisitos
+Hadoop posee su propio sistema de archivos distribuido: *HDFS*. 
+Debemos crear algunas carpetas antes de levantar código en Hadoop:
 
-Tener Docker y Docker Compose instalado
-* [Installation Guide](https://docs.docker.com/compose/install/)
+	 hdfs dfs -mkdir /user
+     hdfs dfs -mkdir /user/hduser
+     hdfs dfs -mkdir input	
+
+Podemos observar que *hdfs* contiene comandos similares al sistema de archivos de UNIX. 
+	-mkdir  `crea un directorio`
+	 -ls        `lista los archivos de un directorio`
+	 -cat     `lista el contenido de un archivo`
 
 
+Pasamos el input al hdfs;
+	`hdfs dfs -put data-text.txt input`
 
-## 🤝 Uso
+## Cómo levantar código
 
-La aplicación tiene una API, que a través del método POST se pueden hacer las peticiones de ingreso:
+Hadoop tiene una utilidad llamada  *mapreduce streaming*. Esta utilidad permite crear y correr cualquier ejecutable que sea mapper/reducer.
 
-### Peticiones de ingreso al sistema
-```curl
-curl −−location −−request POST http://localhost:3000/registro
-```
-#### 
-- ☄METODO: Post
-- 🔑KEY: registro
-- 📃VALUE: \<JSON con los parámetros solicitados\>
+En este caso, es posible correr mapper y reducer a través de python.  El ejemplo trae  un ejemplo de mapper y reducer para el clásico problema *WordCount*. Hacemos lo siguiente en el directorio donde se encuentran los archivos:
 
-#### JSON Registro
-```js
-{
-    "name": "Bastian",
-    "lastname":"Pazán",
-    "dni":"13976345-7",
-    "email":"quiero@morir.com",
-    "patent": "XDFG65",
-    "premium": "0"
-}
-```
+	 mapred streaming -files mapper.py,reducer.py -input /user/hduser/input/*.txt -output /user/hduser/output -mapper ./mapper.py -reducer ./reducer.py
 
-```curl
-curl −−location −−request POST http://localhost:3001/ventas
-```
-#### 
-- ☄METODO: Post
-- 🔑KEY: ventas
-- 📃VALUE: \<JSON con los parámetros solicitados\>
-
-#### JSON Registro de Venta
-```js
-{
-    "cliente": "Cachulo",
-    "cant_sopaipa":"10",
-    "patente":"patentefalsa123",
-    "stock":"5",
-    "ubicacion": "123,123"
-}
-```
-
-
-```curl
-curl −−location −−request POST http://localhost:3002/ubicacion
-```
-#### 
-- ☄METODO: Post
-- 🔑KEY: ubicacion
-- 📃VALUE: \<JSON con los parámetros solicitados\>
-
-#### JSON Registro de Ubicacion
-```js
-{
-    "patente": "Cachulo",
-    "coordenadas": "(14,15)",
-    "reporte": 1
-}
-```
-
-
-## 📹 Video Demostrativo
-[![Alt text](https://i.imgur.com/OVbIpJ7.jpg)](https://youtu.be/6NC_x1rzQJw)
+Dado que específicamos que el output se guardara en  `/user/hduser/output`, podemos ver la salida del *Job* :
+	`hdfs dfs -cat /user/hduser/output/*`
