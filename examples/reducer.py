@@ -14,16 +14,16 @@ for line in sys.stdin:
     l = line.strip()
 
     word, num = l.split("\t",1)
-    if(word == "xdxdxd"):
+    if("xdxdxd" in l):
         count_file += 1
     else:
         if(word in files):
-            if(num in files[word]):
-                files[word][num] += 1
+            if(count_file in files[word]):
+                files[word][count_file] += 1
             else:
-                files[word][num] = 1
+                files[word][count_file] = 1
         else:
-            files[word] = {num:1}
+            files[word] = {count_file:1}
 
 
 f = open("output.txt", "w")
