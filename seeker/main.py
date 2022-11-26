@@ -25,7 +25,7 @@ def search():
             macs = db[search][i]
             archivo = i
 
-    return wiki.page(p[int(archivo)-1],auto_suggest=False).url
+    return wiki.page(p[int(archivo)],auto_suggest=False).url
 
 if __name__ == '__main__':
     app.run(debug=True)
