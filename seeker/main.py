@@ -32,16 +32,9 @@ def search():
                 archivo = j #actualiza el archivo (aqui el archivo que era? el indice con mas weas del diccionario)
                 #ah ya archivo key macs value?
         db[search].pop(archivo) #elimina el indice esto? elimina el objeto con ese indice se supone
-        urls[archivo] = wiki.page(p[int(archivo)],auto_suggest=False).url
-
-        #vemos mañana la wea? tempranito?
-
-        
+        urls[archivo] = wiki.page(p[int(archivo)],auto_suggest=False).url   
     return  urls
 
-#Era culpa de la copia quizá
-#nao, 1 solo aaaaaaaaaaaaaa
-#nao nao x3 x4 x45 x 46x4873687426832 putalawea xd
-#mmmmmmm 
+
 if __name__ == '__main__':
-    app.run(debug=True)y
+    app.run(debug=True)
