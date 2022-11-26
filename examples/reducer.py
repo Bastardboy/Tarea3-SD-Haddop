@@ -37,8 +37,5 @@ for word in files:
     f.write("\n")
 f.close()
 
-with open("../seeker/database.json", "w") as outfile:
-    json.dump(files, outfile, indent = 4)
-
 #word | (file1, count1), (file2, count2), (file3, count3)
 #hola | (1, 2), (2, 1), (3, 1)
