@@ -17,21 +17,20 @@ def search():
     db = json.load(f)
     
     if(search not in db):
-        return "no hay KK"
+        return "no se encontró esta palabra"
     
     #urls_cont = 0
     urls = {}
     
     
-    while(len(db[search])>0): #hasta que se vacia busca
+    while(len(db[search])>0): 
         macs = 0
         archivo = 0
-        for j in db[search]: #busca el archivo con mas coincidencias
-            if(macs < int(db[search][j])): #si hay mas coincidencias
-                macs = db[search][j] #actualiza el maximo, tonces aqui el max seria que valor? el de repeticiones de la palabra
-                archivo = j #actualiza el archivo (aqui el archivo que era? el indice con mas weas del diccionario)
-                #ah ya archivo key macs value?
-        db[search].pop(archivo) #elimina el indice esto? elimina el objeto con ese indice se supone
+        for j in db[search]: 
+            if(macs < int(db[search][j])): 
+                macs = db[search][j]
+                archivo = j 
+        db[search].pop(archivo)
         urls[archivo] = wiki.page(p[int(archivo)],auto_suggest=False).url   
     return  urls
 
