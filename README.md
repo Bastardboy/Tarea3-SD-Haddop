@@ -19,9 +19,7 @@ El objetivo de esta tarea consiste en poner en práctica los conceptos de motor 
 
 Esta sección muestra las tecnologías con las que fue construído el proyecto.
 
-* [Kafka](https://kafka.apache.org/documentation/#gettingStarted)
-* [Zookeper](https://zookeeper.apache.org/doc/r3.8.0/index.html)
-* [NodeJs](https://nodejs.org/en/docs/guides/)
+* [Hadoop](https://hadoop.apache.org)
 * [Python](https://www.python.org)
 * [Docker](https://www.docker.com)
 
@@ -102,7 +100,7 @@ docker build -t test .
 docker run test
 ```
 
-De esta forma, creamos la imagen del buscador y la corremos, por defecto para realizar la búsqueda se realiza en <a href="http://172.17.0.2:5000/search?search=" target="_blank">http://172.17.0.2:5000</a>.
+De esta forma, creamos la imagen del buscador y la corremos, por defecto para realizar la búsqueda se realiza en <a href="http://172.17.0.2:5000/search?search=" target="_blank">http://172.17.0.2:5000/search?search=</a>.
 
 Para efectuar una búsqueda basta con ingresar una palabra delante del símbolo de igual. Dichas palabras se encuentran en lengua inglesa.
 
