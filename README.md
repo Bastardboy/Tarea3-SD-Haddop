@@ -2,7 +2,7 @@
 
 ## Cómo probar el código que hice
 
-	cat data.txt | python mapper.py | sort -k1,1 | python reducer.py
+	cat data.txt | python mapper.py | python reducer.py
 
 ---
 
