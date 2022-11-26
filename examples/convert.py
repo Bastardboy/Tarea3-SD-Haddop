@@ -11,8 +11,10 @@ for line in a_file:
     P = pos.split(" ")
     for i in P:
         a, c = (i.replace("(","").replace(")","")).split(",")
-        files[word] = {a:c}
-
+        if(word in files):
+            files[word][a] = int(c)
+        else:
+            files[word] = {a:int(c)}
 
 with open("../seeker/database.json", "w") as outfile:
     json.dump(files, outfile, indent = 4)
