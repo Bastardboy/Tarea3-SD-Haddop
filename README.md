@@ -109,4 +109,4 @@ De esta forma, creamos la imagen del buscador y la corremos, por defecto para re
 Para efectuar una búsqueda basta con ingresar una palabra delante del símbolo de igual. Dichas palabras se encuentran en lengua inglesa.
 
 ## 📹 Video Demostrativo
-[![Alt text](https://i.imgur.com/OVbIpJ7.jpg)](https://youtu.be/6NC_x1rzQJw)
+[![Alt text](https://i.imgur.com/YzOwmto.jpg)](https://youtu.be/6NC_x1rzQJw)
