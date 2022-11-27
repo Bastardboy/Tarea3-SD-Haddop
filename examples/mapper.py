@@ -2,13 +2,19 @@
 # -*-coding:utf-8 -*
 
 import sys
-import re
-fi = 0
+
+a = 0 
+
 for line in sys.stdin:
     l = line.lower()
-    for char in [",", ".", '"', "'", "(", ")", "\\", ";", ":", "$1", "$", "&"]:
-        l = l.replace(char, '')
-            
-    word = l.split()
-    for words in enumerate(word):
-        print('{}\t{}'.format(words[1], word[0]))
+    if("xdxdxd" in l):
+        a = l.replace('\n','').replace('\t','').replace('\o','')[0]
+        
+
+    else:
+        for char in [",", ".", '"', "'", "(", ")", "\\", ";", ":", "$1", "$", "&"]:
+            l = l.replace(char, '')
+                
+        word = l.split()
+        for words in enumerate(word):
+            print('{}\t{}'.format(words[1], a))

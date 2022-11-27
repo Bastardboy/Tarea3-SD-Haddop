@@ -2,7 +2,6 @@
 # -*-coding:utf-8 -*
 
 import sys
-import json
 
 current_word = None
 current_count = 0
@@ -15,25 +14,23 @@ for line in sys.stdin:
 
     l = line.strip()
     word, num = l.split("\t",1)
-    if("xdxdxd" in l):
-        count_file += 1
-    else:
-        if(word in files):
-            if(count_file in files[word]):
-                files[word][count_file] += 1
-            else:
-                files[word][count_file] = 1
+    if(word in files):
+        if(num in files[word]):
+            files[word][num] += 1
         else:
-            files[word] = {count_file:1}
+            files[word][num] = 1
+    else:
+        files[word] = {num:1}
 
 f = open("output.txt", "w")
 f.write("Palabra\t(Archivo, Cantidad)\n")
 for word in files:
     f.write(word+"\t")
-    print(word+"\t")
+    x = ""
     for file in files[word]:
         f.write("("+str(file)+","+str(files[word][file])+")"+" ") #output
-        print(str(file)+"\t"+str(files[word][file])+" ") #consola
+        x = "("+str(file)+","+str(files[word][file])+")"+" "
+        print(word+"\t"+x)
     f.write("\n")
 f.close()
 

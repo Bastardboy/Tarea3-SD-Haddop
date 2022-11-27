@@ -1,7 +1,7 @@
 import json
 
 files = {}
-a_file = open("output.txt","r")
+a_file = open("outhadoop/part-00000","r")
 
 next(a_file)
 for line in a_file:
