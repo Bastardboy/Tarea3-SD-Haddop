@@ -77,12 +77,16 @@ hdfs dfs -ls input
 ### Ejecución del código MapperReduce
 Ahora que tenemos los archivos, procedemos a ejecutar la utilidad de *mapreduce streaming*.
 ```sh
-mapred streaming -files mapper.py,reducer.py -input /user/hduser/input/.txt -output /user/hduser/output -mapper ./mapper.py -reducer ./reducer.py
+mapred streaming -files mapper.py,reducer.py -input /user/hduser/input/*.txt -output hduser/outhadoop/ -mapper ./mapper.py -reducer ./reducer.py
+```
+Movemos los archivos generados por el output que nos entrega Hadoop
+```sh
+hdfs dfs -get /user/hduser/hduser/outhadoop/ /home/hduser/examples
 ```
 
 Por último, hemos de copiar el output del contenedor en nuestro sistema:
 ```sh
-docker cp output.txt hadoop:/home/hduser/examples
+docker cp hadoop:/home/hduser/examples/outhadoop examples
 ```
 
 ### Ejecutar el buscador
