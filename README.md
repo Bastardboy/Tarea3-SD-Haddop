@@ -104,7 +104,7 @@ docker build -t test .
 docker run test
 ```
 
-De esta forma, creamos la imagen del buscador y la corremos, por defecto para realizar la búsqueda se realiza en <a href="http://172.17.0.2:5000/search?search=" target="_blank">http://172.17.0.2:5000/search?search=<palabra a buscar></a>
+De esta forma, creamos la imagen del buscador y la corremos, por defecto para realizar la búsqueda se realiza en <a href="http://172.17.0.2:5000/search?search=" target="_blank">http://172.17.0.2:5000/search?search=\<palabra a buscar\></a>
 
 Para efectuar una búsqueda basta con ingresar una palabra delante del símbolo de igual. Dichas palabras se encuentran en lengua inglesa.
 
